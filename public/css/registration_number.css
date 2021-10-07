@@ -1,0 +1,151 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
+
+/* UNIVERSAL.. */
+
+* {
+    font-family: 'Lato', Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+body {
+    background-color: rgba(119, 243, 3, 0.507);
+    color: #333447;
+    padding: 0;   
+    margin: 0;
+}
+
+/* UTILITIES */
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+/* HEADER... */
+
+.header .reg-header {
+    margin-bottom: 10px;
+}
+
+.reg-header {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    border: 3px solid #333447;
+    color: white;
+}
+
+/* CREATE REG... */
+
+.create-reg {
+    height: calc (100vh - 100px);
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.errors {
+    font-size: 19px;
+}   
+
+.reg-create .reg-textbox {
+    font-size: 25px;
+}
+
+.reg-textbox input {
+    font-size: 25px;
+    width: auto;
+    min-width: 250px;
+    margin: 5px 0px;
+    border-radius: 4px;
+    height: 35px;
+}
+
+.reg-textbox p {
+    margin-top: 0px;
+    font-size: 16px;
+}
+
+.reg-textbox h4 {
+    margin: 7.5px 0 0 0px;
+    font-size: 20px;
+}
+
+.reg-textbox .regText {
+    margin: 5px;
+    font-size: 18px;
+}
+
+.reg-create .reg-btn {
+    margin: 5px 0 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.addRegBtn, .showBtn, .showAllBtn, .resetBtn{
+    width: auto;
+    height: auto;
+    padding: 5px;
+    margin: 5px;
+    font-size: large;
+    font-weight: bold;
+    border:2px solid blue;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.addRegBtn:hover, .showBtn:hover, .showAllBtn:hover, .resetBtn:hover {
+    transform: scale(1.1);
+}
+
+.finalReg, .testing {
+    width: auto;
+    min-height: 55px;
+    height: auto;
+    background-color: white;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 20px;
+    margin: 9px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+plates {
+    background-color: yellow;
+    border: 3.5px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 7px;
+}
+
+.reg-create .radio-btn {
+    display: inline-flex;
+    margin: 5px 5px 10px 5px;
+    padding: 5px;
+    text-align: left;
+    justify-content: left;
+    align-content: space-between;
+    font-size: 20px;
+}
+
+.radio-town {
+    margin: 10px 10px 10px 25px;
+}
+
+/* CLASSLIST... */
+
+.error {
+    color: crimson;
+    font-weight: bold;
+} 
+
+.proceed {
+    color: #333447;
+    font-weight: bold;
+}
