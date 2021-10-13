@@ -61,13 +61,21 @@
             </div>
 
             <div class="finalReg">
-                {{#each regNumb}}
+                {{#if messages.info}}
+                <div class="entry">
+                    <h1> {{messages.info}}</h1>
+                </div>
+                {{/if}}
+
+                {{#each displayReg}}
                     <plates>{{regnumber}}</plates>
         
                 {{/each}}
 
             </div>
+
         </div>
+
     </section>
     
 </body>

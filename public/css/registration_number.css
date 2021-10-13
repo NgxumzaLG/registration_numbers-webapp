@@ -36,6 +36,10 @@ body {
     color: white;
 }
 
+.reg-header h1 {
+    margin: 12.5px;
+}
+
 /* CREATE REG... */
 
 .create-reg {
@@ -84,7 +88,12 @@ body {
     justify-content: center;
 }
 
-.addRegBtn, .showBtn, .showAllBtn, .resetBtn{
+.show-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.addRegBtn, .showBtn, .showAllBtn, .resetBtn {
     width: auto;
     height: auto;
     padding: 5px;
@@ -100,7 +109,7 @@ body {
     transform: scale(1.1);
 }
 
-.finalReg, .testing {
+.finalReg {
     width: auto;
     min-height: 55px;
     height: auto;
