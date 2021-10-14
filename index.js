@@ -5,7 +5,8 @@ const flash = require('express-flash');
 const session = require('express-session');
 const {Pool} = require('pg');
 
-const regNumberFactory = require('./reg_number-factory');
+const regNumberFactory = require('./functions/reg_number-factory');
+const regRoutes = require('./routes/reg-routes');
 
 // should we use a SSL connection
 let useSSL = false;
@@ -25,6 +26,7 @@ const pool = new Pool({
 
 const app = express();
 const registrationNumber = regNumberFactory(pool);
+const registrationRoutes = regRoutes(registrationNumber);
 
 app.use(express.static('public'));
 
@@ -50,49 +52,19 @@ app.use(session({
 }));
 
 // initialise the flash middleware
-app.use(flash());
+app.use(flash());	
 
-app.get('/', async function(req, res){
-	res.render('index', {
-		regNumb: await registrationNumber.getTable()
-	});
-});
+app.get('/', registrationRoutes.defualt);
 
-app.post('/action', async function(req, res) {
-	if (req.body.enterReg == '') {
-		req.flash('info', 'Please enter a registration number');
-		
-	} else {
-		await registrationNumber.addReg(req.body.enterReg);
+app.post('/action', registrationRoutes.action);
 
-	}
-	res.redirect('/');
-});
+app.post('/reg_numbers', registrationRoutes.regNumbersPost);
 
-app.post('/reg_numbers', function(req, res) {
-	registrationNumber.selectedTown(req.body.towns);
+app.get('/reg_numbers', registrationRoutes.regNumbersGet);
 
-	res.redirect('reg_numbers');
-});
+app.get('/allTown', registrationRoutes.allTown);
 
-app.get('/reg_numbers',  async function(req,res) {
-	let inTown = registrationNumber.getTown();
-	if (inTown != '') {
-		let displayReg = await registrationNumber.filterRegNo(inTown);
-		if (displayReg == []) {
-			req.flash('info', 'No Registration number(s) yet');
-		}
-
-		res.render('filtered', {displayReg});
-	}
-
-	res.render('filtered');
-	// console.log(displayReg)
-});
-
-app.get('/allTown', function(req, res) {
-	res.redirect('/');
-});
+app.get('/reset', registrationRoutes.reset);
 
 // app.get('/reg_numbers/:find', async function(req, res) {
 // 	let findReg = req.params.find;
@@ -103,12 +75,6 @@ app.get('/allTown', function(req, res) {
 // 		theResult: await registrationNumber.specificReg(findReg)
 // 	}
 // });
-
-app.get('/reset', async function(req, res) {
-	await registrationNumber.resetData();
-	
-	res.redirect('/');
-});
 
 let PORT = process.env.PORT || 3010;
 

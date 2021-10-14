@@ -19,12 +19,12 @@
     <section class="create-reg">
         <div class="container reg-create">
             <div class="reg-textbox">
-                {{#if messages.info}}
+                {{!-- {{#if messages.info}}
                     <div class="errors">
                         <h1> {{messages.info}}</h1>
                     </div>
                     
-                {{/if}}
+                {{/if}} --}}
 
                 <form action="/action" method="POST">
                     Registration No.
@@ -62,9 +62,8 @@
 
             <div class="finalReg">
                 {{#if messages.info}}
-                <div class="entry">
-                    <h1> {{messages.info}}</h1>
-                </div>
+                    {{messages.info}}
+                    
                 {{/if}}
 
                 {{#each displayReg}}
