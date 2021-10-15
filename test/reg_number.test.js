@@ -46,17 +46,6 @@ describe('Registration number exercise' , function(){
 		assert.deepEqual([{regnumber: 'CA 123456', town_id: 1}], await registrationNumber.filterRegNo('CA'));
 	});
 
-	it('Should be able to filter registration numbers based on the selected town', async function(){
-		let registrationNumber = regNumberFactory(pool);
-
-		await registrationNumber.addReg('Cj 123456');
-		await registrationNumber.addReg('cA 123456');
-
-		registrationNumber.selectedTown('bellville');
-
-		assert.deepEqual([], await registrationNumber.filterRegNo('CY'));
-	});
-
 	it('Should be able to reset the database', async function(){
 		let registrationNumber = regNumberFactory(pool);
 
@@ -67,34 +56,6 @@ describe('Registration number exercise' , function(){
 
 		assert.deepEqual([], await registrationNumber.getTable());
 	});
-
-	// it('Should return "{regNo: "CL 123-456"}", once the registration number has been entered from the textbox' , function(){
-	// 	let registrationNumber = regNumberFactory(pool);
-
-	// 	assert.equal('', registrationNumber.test('ca 123 456'));
-	// });
-
-	// describe('Show the message' , function(){
-	// 	it('Should return the message of "Registration number has been succcesfully added" once the registration number has been added' , function(){
-	// 		let registrationNumber = regNumberFactory();
-
-	// 		registrationNumber.addRegNo('CA 123456');
-
-	// 		assert.deepEqual([{regNo: 'CA 123456'}], registrationNumber.regNoAdded());
-	// 		assert.equal('Registration number has been succcesfully added', registrationNumber.getMessage());
-
-	// 	});
-	// 	it('Should return the message of "Registration number already exists", if the registration number entered already exists' , function(){
-	// 		let registrationNumber = regNumberFactory();
-
-	// 		registrationNumber.addRegNo('cL 123-456');
-	// 		registrationNumber.addRegNo('CL 123-456');
-
-	// 		assert.deepEqual([{regNo: 'CL 123-456'}], registrationNumber.regNoAdded());
-	// 		assert.equal('Registration number already exists', registrationNumber.getMessage());
-
-	// 	});
-	// });
 
 	after(function(){
 		pool.end();

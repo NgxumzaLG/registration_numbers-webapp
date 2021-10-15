@@ -1,22 +1,19 @@
 module.exports = function(registrationNumber) {
 
 	async function defualt(req, res){
+		req.flash('info', registrationNumber.getMessage());
+
 		res.render('index', {
-			regNumb: await registrationNumber.getTable()
+			regNumb: await registrationNumber.getTable(),
+			color: registrationNumber.addClass()
 
 		});
 	}
 
 	async function action(req, res, next) {
 		try {
-			if (req.body.enterReg == '') {
-				req.flash('info', 'Please enter a registration number');
-                
-			} else {
-				await registrationNumber.addReg(req.body.enterReg);
-        
-			}
-    
+			await registrationNumber.addReg(req.body.enterReg);
+
 			res.redirect('/');
             
 		} catch (error) {
@@ -40,13 +37,21 @@ module.exports = function(registrationNumber) {
 	async function regNumbersGet(req, res, next) {
 		try {
 			let inTown = registrationNumber.getTown();
-			let displayReg = await registrationNumber.filterRegNo(inTown);
+			let displayReg = [];
+			let color = registrationNumber.addClass();
 
-			if (displayReg.length == 0) {
-				req.flash('info', 'No Registration number(s) yet');
+			if (inTown !== '') {
+				displayReg = await registrationNumber.filterRegNo(inTown);
 
-			} 
-			res.render('filtered', {displayReg});
+				if (displayReg.length == 0) {
+					req.flash('success', 'No Registration number(s) from this town yet');
+
+				} 
+			} else {
+				req.flash('info', 'Error! town not selected');
+
+			}
+			res.render('filtered', {displayReg, color});
             
 		} catch (error) {
 			next(error);
@@ -55,12 +60,16 @@ module.exports = function(registrationNumber) {
 	}
 
 	function allTown(req, res) {
+		registrationNumber.clearMessage();
 
 		res.redirect('/');
 	}
 
 	async function reset(req, res) {
 		await registrationNumber.resetData();
+
+		req.flash('success', 'The database has been succesfully reset!');
+		registrationNumber.clearMessage();
         
 		res.redirect('/');
 	}

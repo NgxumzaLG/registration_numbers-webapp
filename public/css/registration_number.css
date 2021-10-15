@@ -25,7 +25,7 @@ body {
 /* HEADER... */
 
 .header .reg-header {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .reg-header {
@@ -34,10 +34,11 @@ body {
     align-content: center;
     border: 3px solid #333447;
     color: white;
+    min-height: 65px;
 }
 
 .reg-header h1 {
-    margin: 12.5px;
+    margin: 7.5px;
 }
 
 /* CREATE REG... */
@@ -47,7 +48,7 @@ body {
     justify-content: center;
     align-content: center;
     text-align: center;
-    padding: 15px;
+    padding: 12.5px;
 }
 
 .errors {
@@ -65,6 +66,7 @@ body {
     margin: 5px 0px;
     border-radius: 4px;
     height: 35px;
+    text-align: center;
 }
 
 .reg-textbox p {
@@ -102,7 +104,7 @@ body {
     font-weight: bold;
     border:2px solid blue;
     border-radius: 5px;
-    background-color: transparent;
+    background-color: blue;
 }
 
 .addRegBtn:hover, .showBtn:hover, .showAllBtn:hover, .resetBtn:hover {
@@ -123,6 +125,10 @@ body {
     text-align: center;
     display: flex;
     flex-wrap: wrap;
+}
+
+.success {
+    font-size: 21px;
 }
 
 plates {

@@ -52,7 +52,8 @@ app.use(session({
 }));
 
 // initialise the flash middleware
-app.use(flash());	
+app.use(flash());
+
 
 app.get('/', registrationRoutes.defualt);
 
@@ -65,16 +66,6 @@ app.get('/reg_numbers', registrationRoutes.regNumbersGet);
 app.get('/allTown', registrationRoutes.allTown);
 
 app.get('/reset', registrationRoutes.reset);
-
-// app.get('/reg_numbers/:find', async function(req, res) {
-// 	let findReg = req.params.find;
-// 	console.log(findReg);
-
-// 	res.render('search');
-// 	, {
-// 		theResult: await registrationNumber.specificReg(findReg)
-// 	}
-// });
 
 let PORT = process.env.PORT || 3010;
 

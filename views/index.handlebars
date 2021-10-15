@@ -20,21 +20,24 @@
         <div class="container reg-create">
             <div class="reg-textbox">
                 {{#if messages.info}}
-                    <div class="errors">
-                        <h1> {{messages.info}}</h1>
+                    <div class="errors {{color}}">
+                        {{messages.info}}
                     </div>
                     
                 {{/if}}
 
                 <form action="/action" method="POST">
-                    Registration No.
+                    <div>
+                        Registration No.
+                    </div>
+
                     <input type="text" name="enterReg" value="" placeholder="enter a registration number" class="regText">
                     <h4>Accepted Registration Formats</h4>
                     <p>CA 123356, CA 123 456 or CA 123-456</p>
             </div>
 
             <div class="reg-btn">
-                    <button class="addRegBtn" on type="submit" name="button">Add Registration No. </button>
+                    <button class="addRegBtn" on type="submit" name="button">Add Reg No.</button>
                 </form>
                 <form action="/reset" method="GET">
                     <button class="resetBtn" on type="submit" name="button">Reset</button>
@@ -61,6 +64,13 @@
             </div>
 
             <div class="finalReg">
+                {{#if messages.success}}
+                    <div class="success">
+                        {{messages.success}}
+
+                    </div>
+                {{/if}}
+
                 {{#each regNumb}}
                     <plates>{{regnumber}}</plates>
         

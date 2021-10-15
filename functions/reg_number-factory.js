@@ -1,7 +1,5 @@
 module.exports = function(data) {
 	const pool =  data;
-	let storeRegNo;
-	let usedTown = '';
 	let regCode = '';
 	var message = '';
 	const regExp1 = /^((CA|CY|CJ|CL)\s([0-9]){6})$/;
@@ -28,8 +26,6 @@ module.exports = function(data) {
 			regCode = 'CL';
 
 		}
-
-		// return regCode;
 	}
 
 	async function addReg(reg) {
@@ -43,7 +39,13 @@ module.exports = function(data) {
 				const refId = getCode[0].id;
 
 				await regCheck(regNo, refId);
+			}else {
+				message = 'Error! Invalid registration number format entered';
+
 			}
+		} else {
+			message = 'Error! Registration number not entered';
+
 		}
 	}
 
@@ -52,6 +54,10 @@ module.exports = function(data) {
 
 		if (regDuplicates.rows.length == 0) {
 			await pool.query('INSERT INTO reg_numbers (regNumber, town_id)  VALUES ($1, $2)', [theReg, theId]);
+			message = 'Registration number has been succcesfully added';
+
+		} else {
+			message = 'Registration number already exists';
 
 		}
 	}
@@ -63,29 +69,42 @@ module.exports = function(data) {
 	}
 
 	async function filterRegNo(useTown) {
-		const townCode = useTown;
-		const getRow = await pool.query('SELECT * FROM reg_towns WHERE code = $1', [townCode]);
-		const getTown = getRow.rows;
-		const refId = getTown[0].id;
+		if (useTown != '') {
+			const townCode = useTown;
+			const getRow = await pool.query('SELECT * FROM reg_towns WHERE code = $1', [townCode]);
+			const getTown = getRow.rows;
+			const refId = getTown[0].id;
 
-		const getFiltered = await pool.query('SELECT regNumber, town_id FROM reg_numbers WHERE town_id = $1', [refId]);
+			const getFiltered = await pool.query('SELECT regNumber, town_id FROM reg_numbers WHERE town_id = $1', [refId]);
 
-		return getFiltered.rows;
+			return getFiltered.rows;
+		} else {
+			message = 'Error! town not selected';
+			return [];
+
+		}
 	}
 
 	function getTown() {
 		return regCode;
 	}
 
-	async function specificReg(search) {
-		let regSearch = search.toUpperCase();
-		const theResult = await pool.query('SELECT regNumber, town_id FROM reg_numbers WHERE regNumber = $1', [regSearch]);
-
-		return theResult[0].rows;
-	}
-
 	async function resetData() {
 		return pool.query('DELETE FROM reg_numbers');
+	}
+
+	function addClass() {
+		if (message == 'Registration number has been succcesfully added') {
+			return 'proceed';
+
+		} else {
+			return 'error';
+
+		}
+	}
+
+	function clearMessage() {
+		message = '';
 	}
 
 	return {
@@ -96,8 +115,9 @@ module.exports = function(data) {
 		getTable,
 		filterRegNo,
 		getTown,
-		specificReg,
-		resetData
+		resetData,
+		addClass,
+		clearMessage
         
 	};
 };
